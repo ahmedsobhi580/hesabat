@@ -1,0 +1,22 @@
+name: Hesabat
+options:
+  bundleIdPrefix: com.halaby   # غيّر "halaby" لاسمك أنت
+targets:
+  Hesabat:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - Hesabat
+    info:
+      path: Hesabat/Info.plist
+      properties:
+        CFBundleDisplayName: حسابات العمال
+        CFBundleShortVersionString: 1.0
+        CFBundleVersion: 1
+        UILaunchScreen: {}
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.halaby.hesabat
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"

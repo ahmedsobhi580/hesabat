@@ -1,0 +1,27 @@
+name: Build IPA
+on:
+  workflow_dispatch:   # تشغيل يدوي من تبويب Actions
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Xcode project
+        run: brew install xcodegen && xcodegen
+
+      - name: Build (unsigned)
+        run: |
+          xcodebuild -project Hesabat.xcodeproj -scheme Hesabat             -configuration Release -destination 'generic/platform=iOS'             -derivedDataPath build CODE_SIGNING_ALLOWED=NO
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/Hesabat.app Payload/
+          zip -r Hesabat.ipa Payload
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: Hesabat-ipa
+          path: Hesabat.ipa
